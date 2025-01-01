@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool checkOverlap(int radius, int xCenter, int yCenter, int x1, int y1, int x2, int y2) {
+        int Rx=max(x1,min(x2,xCenter));
+        int Ry=max(y1,min(y2,yCenter));
+
+        int xD=Rx-xCenter;
+        int yD=Ry-yCenter;
+        int h=xD*xD+yD*yD;
+        return h<=(radius *radius);
+
+        
+    }
+};
