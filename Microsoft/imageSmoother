@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> imageSmoother(vector<vector<int>>& img) {
+        int n=img.size();
+        int m=img[0].size();
+        vector<pair<int,int>>p={{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1}};
+        vector<vector<int>>ans(n,vector<int>(m));
+        for(int i=0; i<n; i++){
+           
+            for(int j=0; j<m; j++){
+                 int sum=0;
+                sum+=img[i][j];
+                int count=1;
+                for(int k=0; k<8; k++){
+                    int r=i+p[k].first;
+                    int c=j+p[k].second;
+                    if(r>=0 and r<n and c>=0 and c<m){
+                        sum+=img[r][c];
+                        count++;
+                    }
+                }
+                int val=sum/count;
+                
+                ans[i][j]=val;
+
+            }
+        }
+        return ans;
+    }
+};
