@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        unordered_set<string>st;
+        unordered_set<string>result;
+       
+        int n=s.size();
+        for(int i=0; i<n-9; i++){
+            string str=s.substr(i,10);
+            if(st.find(str)!=st.end()){
+                result.insert(str);
+            }else{
+                st.insert(str);
+            }
+        }
+        // cout<<st.size()<<
+         vector<string>ans(result.begin(),result.end());
+        return ans;
+    }
+};

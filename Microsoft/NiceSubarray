@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int solve(vector<int>&nums,int k){
+         int n=nums.size();
+         int i=0,j=0;
+         int sum=0, ans=0;
+         while(j<n){
+            sum+=nums[j]%2;
+            while(sum>k){
+                sum-=nums[i]%2;
+                i++;
+            }
+           ans+=(j-i+1);
+           j++;
+
+         }
+         return ans;
+    }
+    int numberOfSubarrays(vector<int>& nums, int k) {
+       
+        int count1=solve(nums,k);
+        int count2=solve(nums,k-1);
+        cout<<count2;
+        return count1-count2;
+    }
+};

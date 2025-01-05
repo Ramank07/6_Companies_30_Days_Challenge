@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+         int d[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i==j){
+                    d[i][j]=0;
+                }else{
+                    d[i][j]=1e9;
+                }
+            }
+        }
+        for(int i=0; i<edges.size(); i++){
+            int r=edges[i][0];
+            int c=edges[i][1];
+            int w=edges[i][2];
+            d[r][c]=min(d[r][c],w);
+            d[c][r]=min(d[c][r],w);
+        }
+        for(int via=0; via<n; via++){
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                // cout<<v[i][j]<<"-> "<<v[i][via]+v[via][j]<<"  ";
+                d[i][j]=min(d[i][j],(d[i][via]+d[via][j]));
+            }
+        }
+        }
+        int ans=0,mincount=INT_MAX;
+        for(int i=0; i<n; i++){
+            int count=0;
+            for(int j=0; j<n; j++){
+                if(i!=j and d[i][j]<=distanceThreshold)count++;
+            }
+            if(count<=mincount){
+                mincount=count;
+                ans=i;
+                }
+        }
+        return ans;
+    }
+};

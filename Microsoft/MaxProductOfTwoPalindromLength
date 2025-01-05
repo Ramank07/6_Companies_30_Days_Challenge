@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxProduct(string s) {
+        int n=s.size();
+        unordered_map<int,int>mp;
+        for(int i=1; i<(1<<n); i++){
+            string str="";
+            for(int j=0; j<n; j++){
+                if((1<<j)&i)str+=s[j];
+            }
+         string rstr=str;
+         reverse(rstr.begin(),rstr.end());
+         if(str==rstr){
+            mp[i]=str.size();
+         }
+        }
+        int ans=0;
+        for(auto i=mp.begin(); i!=mp.end(); i++){
+            for(auto j=i; j!=mp.end(); j++){
+                if((i->first & j->first)==0){
+                    ans=max(ans,i->second*j->second);
+                }
+            }
+        }
+        return ans;
+    }
+};
