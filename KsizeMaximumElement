@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    // Function to find maximum of each subarray of size k.
+    vector<int> maxOfSubarrays(vector<int>& arr, int k) {
+        // code here
+        multiset<int, greater<int>>s;
+        vector<int>ans;
+        int n=arr.size();
+        int i=0,j=0;
+        while(j<n){
+           s.insert(arr[j]);
+           while(s.size()>k){
+               s.erase(s.find(arr[i]));
+               i++;
+           }
+           if(s.size()==k){
+            //   for(auto it:s){
+            //       cout<<it<<" ";
+            //   }cout<<endl;
+               ans.push_back(*(s.begin()));}
+            j++;
+        }
+        return ans;
+    }
+};
