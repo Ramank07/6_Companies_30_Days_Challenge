@@ -1,0 +1,54 @@
+class Solution {
+public:
+void solve( vector<vector<int>>& grid, queue<pair<int,int>>q, vector<pair<int,int>>&del, int &count){
+    while(!q.empty()){
+        count+=1;
+        int size=q.size();
+        while(size>0){
+        int row=q.front().first;
+        int col=q.front().second;
+        q.pop();
+        for(int i=0; i<4; i++){
+            int nr=row+del[i].first;
+            int nc=col+del[i].second;
+            if(nr>=0 and nr<grid.size() and nc>=0 and nc<grid[0].size() and grid[nr][nc]==1){
+                q.push({nr,nc});
+                grid[nr][nc]=2;
+            }
+        }
+        size-=1;
+        
+        }
+        
+
+    }
+    return;
+}
+    int orangesRotting(vector<vector<int>>& grid) {
+        
+        int n=grid.size();
+        int m=grid[0].size();
+       
+        queue<pair<int,int>>q;
+        int ans=0;
+        vector<pair<int,int>>del={{0,-1},{-1,0},{0,1},{1,0}};
+        bool flag=true;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(grid[i][j]==2 ){
+                     q.push({i,j});
+                    
+                   
+                    flag=false;
+                }
+            }
+        }
+        solve(grid,q,del,ans);
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(grid[i][j]==1)return -1;
+            }
+        }
+        return ans==0?0:ans-1;
+    }
+};
