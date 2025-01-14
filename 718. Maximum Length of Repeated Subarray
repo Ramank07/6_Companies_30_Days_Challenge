@@ -1,0 +1,31 @@
+class Solution {
+public:
+// void solve(int ind1, int ind2, vector<int>& a, vector<int>& b, vector<vector<int>>&dp){
+//     if(ind1<0 or ind2<0)return ;
+//     if(dp[ind1][ind2]!=-1) dp[ind1][ind2];
+    
+//     if(a[ind1]==b[ind2]) dp[ind1][ind2]=1+solve(ind1-1, ind2-1, a, b, dp);
+//      dp[ind1][ind2]=0;
+//         return;
+
+//     // return dp[ind1][ind2]=max(solve(ind1-1,ind2,a,b, dp),solve(ind1,ind2-1,a,b, dp));
+// }
+    int findLength(vector<int>& nums1, vector<int>& nums2) {
+        int n=nums1.size();
+        int m=nums2.size();
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        //  solve(n-1,m-1,nums1,nums2,dp);
+         int ans=0;
+        for(int i=1; i<=n; i++){
+            for(int j=1; j<=m; j++){
+                if(nums1[i-1]==nums2[j-1]){
+                    dp[i][j]=1+dp[i-1][j-1];
+                    ans=max(dp[i][j],ans);
+                }else{
+                    dp[i][j]=0;
+                }
+            }
+        }
+         return ans;
+    }
+};
