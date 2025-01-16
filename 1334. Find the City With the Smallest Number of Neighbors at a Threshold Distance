@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+        // int n=edges.size();
+        
+        vector<vector<int>>v(n,vector<int>(n,1e9));
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                if(i==j)v[i][j]=0;
+
+            }
+        }
+        for(int i=0; i<edges.size(); i++){
+            int r=edges[i][0];
+            int c=edges[i][1];
+            int w=edges[i][2];
+            v[r][c]=w;
+            v[c][r]=w;
+        }
+        for(int via=0; via<n; via++){
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                
+              v[i][j]=min(v[i][j],(v[i][via]+v[via][j]));
+            }
+        }
+        }
+        int mincount=INT_MAX;
+        int ans=0;
+        for(int i=0; i<n; i++){
+            int count=0;
+            for(int j=0; j<n; j++){
+                if(i!=j and v[i][j]<=distanceThreshold)count++;
+
+            }
+            if(count<=mincount){
+                mincount=count;
+                ans=i;
+            }
+
+            
+        }
+        return ans;
+    }
+};
