@@ -1,0 +1,32 @@
+class Solution {
+public:
+  
+    vector<int> storeIndex(string str, string s)
+    {
+        vector<int> temp;
+        size_t pos = str.find(s, 0);
+
+        if (pos == string::npos)
+            return temp;
+
+        while (pos != string::npos) {
+            temp.push_back(pos);
+            pos = str.find(s, pos + 1);
+        }
+        return temp;
+    }
+    vector<int> beautifulIndices(string s, string a, string b, int k) {
+        vector<int> temp1=storeIndex(s,a);
+        vector<int> temp2=storeIndex(s,b);
+        vector<int> ans;
+        for(int i=0;i<temp1.size();i++){
+            for(int j=0;j<temp2.size();j++){
+                if(abs(temp1[i]-temp2[j])<=k){
+                    ans.push_back(temp1[i]);
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+};
